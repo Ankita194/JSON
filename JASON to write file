@@ -1,0 +1,60 @@
+
+// Java program for write JSON to a file
+  
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+  
+public class JSONWriteExample
+{
+    public static void main(String[] args) throws FileNotFoundException 
+    {
+        // creating JSONObject
+        JSONObject jo = new JSONObject();
+          
+        // putting data to JSONObject
+        jo.put("semo_id", "S0123456789");
+        jo.put("firstName", "Jane");
+        jo.put("lastName", "Doe");
+        jo.put("semester", "SP2020");
+          
+        // for address data, first create LinkedHashMap
+        Map m = new LinkedHashMap(2);
+        m.put("CS533", "Mobile Computing");
+        m.put("IS360", "Mobile Application Development");
+        
+          
+        // putting address to JSONObject
+        jo.put("course", m);
+          
+        // for phone numbers, first create JSONArray 
+        JSONArray ja = new JSONArray();
+          
+        m = new LinkedHashMap(2);
+        m.put("type", "face-to-face");
+        m.put("course", "CS533");
+          
+        // adding map to list
+        ja.add(m);
+          
+        m = new LinkedHashMap(2);
+        m.put("type", "online");
+        m.put("course", "IS360");
+          
+        // adding map to list
+        ja.add(m);
+          
+        // putting phoneNumbers to JSONObject
+        jo.put("approach", ja);
+          
+        // writing JSON to file:"JSONExample.json" in cwd
+        PrintWriter pw = new PrintWriter("JSONExample.json");
+        pw.write(jo.toJSONString());
+          
+        pw.flush();
+        pw.close();
+    }
+}
